@@ -7,28 +7,15 @@ int yylex(void);          // Declare yylex here
 %}
 
 %token TA TD
-%left '+' '-'
-%left '*' '/'
+
 
 %%
 
-list: expr '\n' { printf("Accepted\n"); }
-    | id '=' expr '\n' { printf("Accepted\n"); }
-    | 
-    ;
+list:TA s '\n'{
+    printf("Accepted");
+}
 
-expr: '(' expr ')' {$$=$2;}
-    | expr '+' expr {$$=$1+$3;}
-    | expr '-' expr {$$=$1=$3;}
-    | expr '*' expr {$$=$1*$3;}
-    | expr '/' expr {$$=$1/$3;}
-    | num
-    | id
-    ;
-
-num: TD {$$=$$;}
-id: TA  {$$=10*$1+$2;}
-   ;
+s:s TA|s TD|;
 
 %%
 
